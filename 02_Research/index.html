@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    
+    <meta name="robots" content="noindex, nofollow, noarchive">
+    <meta name="googlebot" content="noindex">
+    
+    <title>研究洞察 - Research & Insights (高级字体完美版)</title>
+
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+        @import url('https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css');
+        
+        :root {
+            --pink-main: #FF69B4;
+            --pink-deep: #FF1493;
+            --cyan-main: #4ECDC4;
+            --bg-card: rgba(255, 255, 255, 0.98);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body { 
+            width: 100%; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            background-color: #fff;
+            overflow-x: hidden;
+            font-family: 'Inter', 'Playfair Display', 'Noto Serif SC', 'Source Han Serif SC', 'STSong', serif;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .main-wrapper { width: 1920px; position: relative; }
+
+        section { 
+            width: 1920px; height: 100vh; 
+            position: relative; display: flex; 
+            align-items: center; justify-content: center; 
+        }
+
+        h1, h2, .hero-title { 
+            font-family: 'Playfair Display', 'Noto Serif SC', serif; 
+            font-weight: 700; 
+        }
+
+        .hero { background: url('research_bg.jpg') center/cover; }
+        .hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(8px); }
+        .hero-title { position: relative; z-index: 2; font-size: 88px; color: #fff; font-weight: bold; letter-spacing: 15px; }
+
+        .p2-images { position: absolute; left: 120px; width: 750px; height: 600px; }
+        .img-main { width: 550px; height: 400px; object-fit: cover; clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%); position: absolute; }
+        .img-round { width: 280px; height: 280px; border-radius: 50%; object-fit: cover; position: absolute; right: 0; bottom: 0; z-index: 2; box-shadow: 0 30px 60px rgba(0,0,0,0.2); }
+        .img-rotate { width: 220px; height: 220px; border-radius: 20px; object-fit: cover; position: absolute; left: 0; bottom: -50px; transform: rotate(-10deg); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+
+        .card { 
+            background: var(--bg-card); padding: 50px; border-radius: 40px; 
+            box-shadow: 0 40px 100px rgba(0,0,0,0.1); z-index: 10; width: 800px;
+            cursor: pointer; transition: 0.4s ease;
+        }
+        
+        .card-details { display: none; margin-top: 30px; border-top: 1px solid #eee; padding-top: 25px; }
+        .card.active .card-details { display: block; }
+        .card.active .expand-hint { display: none; }
+
+        .quote-box { background: #FFF0F5; padding: 25px; border-radius: 20px; border-left: 6px solid var(--pink-deep); margin-bottom: 25px; }
+        .quote-text { 
+            font-family: 'Playfair Display', 'Noto Serif SC', serif;
+            font-style: italic;
+            font-size: 26px; 
+            color: var(--pink-deep); 
+            text-align: center; 
+        }
+        
+        .grid-info { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .info-item { background: #f9f9f9; padding: 15px; border-radius: 12px; font-size: 14px; font-family: 'Inter', sans-serif; }
+        .info-label { font-weight: bold; color: var(--pink-deep); display: block; margin-bottom: 5px; letter-spacing: 1px; }
+
+        .finding-block { padding: 20px; border-left: 4px solid var(--pink-main); background: #FFFBFC; margin-bottom: 15px; }
+        .finding-title { font-weight: bold; margin-bottom: 8px; font-size: 18px; color: #333; }
+        .finding-list { font-size: 15px; line-height: 1.8; color: #444; list-style: none; font-family: 'Inter', sans-serif; }
+        .highlight { color: var(--pink-deep); font-weight: bold; }
+
+        .biz-footer { border: 2px solid var(--pink-main); padding: 20px; border-radius: 15px; background: #FFF5F7; font-size: 14px; line-height: 1.6; letter-spacing: 0.5px; }
+
+        .side-img-left { position: absolute; left: 0; width: 48vw; height: 85%; object-fit: cover; clip-path: polygon(0 0, 95% 0, 80% 100%, 0 100%); }
+        .side-img-right { position: absolute; right: 0; width: 45vw; height: 75%; object-fit: cover; border-radius: 40px 0 0 40px; }
+
+        .footer-center { background: url('粉色5.jpg') center/cover; }
+        .footer-overlay { position: absolute; inset: 0; background: rgba(255,255,255,0.85); backdrop-filter: blur(12px); }
+        .final-card { 
+            width: 1100px; padding: 100px; text-align: center; z-index: 10;
+            background: #fff; border-radius: 50px; box-shadow: 0 50px 150px rgba(0,0,0,0.1);
+        }
+
+        /* --- 新增：侧边导航栏样式 --- */
+        .page-switcher {
+            position: fixed; right: 40px; top: 50%; transform: translateY(-50%);
+            z-index: 1000; display: flex; flex-direction: column; gap: 15px;
+        }
+        .page-link {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: rgba(0,0,0,0.05); border: 1px solid rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: #333; text-decoration: none; font-size: 14px; transition: 0.3s;
+            font-family: 'Inter', sans-serif; backdrop-filter: blur(5px);
+        }
+        .page-link.active { background: var(--pink-main); color: #fff; border-color: var(--pink-main); box-shadow: 0 4px 15px rgba(255,105,180,0.3); }
+        .page-link:hover:not(.active) { background: rgba(0,0,0,0.1); transform: scale(1.1); }
+    </style>
+</head>
+<body>
+
+<nav class="page-switcher">
+    <a href="../index.html" class="page-link" style="font-size: 12px;">首页</a>
+    <a href="../01_About/index.html" class="page-link">01</a>
+    <a href="../02_Research/index.html" class="page-link">02</a>
+    <a href="../03_Cases/index.html" class="page-link">03</a>
+    <a href="../04_Skills/index.html" class="page-link">04</a>
+    <a href="../05_Contact/index.html" class="page-link">05</a>
+</nav>
+
+<div class="main-wrapper">
+    <section class="hero">
+        <h1 class="hero-title">02 研究洞察</h1>
+    </section>
+
+    <section>
+        <div class="p2-images">
+            <img src="research_1.jpg" class="img-main">
+            <img src="research_2.jpg" class="img-round">
+            <img src="research_3.jpg" class="img-rotate">
+        </div>
+        <div class="card" style="margin-left: 820px;" onclick="this.classList.toggle('active')">
+            <div style="color:var(--pink-deep); font-weight:bold; margin-bottom:10px; font-family:'Inter'; letter-spacing:2px;">【国家级大创项目】</div>
+            <h2 style="font-size:38px; margin-bottom:10px;">她经济与女性消费心理</h2>
+            <p class="expand-hint" style="color:#999; font-family:'Inter';">点击展开研究全貌 ➔</p>
+            
+            <div class="card-details">
+                <div class="quote-box"><p class="quote-text">"身体消费的双刃剑: 悦己与被物化的博弈"</p></div>
+                <div class="grid-info">
+                    <div class="info-item"><span class="info-label">研究对象</span>样本: 小红书平台女性用户</div>
+                    <div class="info-item"><span class="info-label">方法 & 框架</span>SPSS26.0 + MAXQDA + 扎根理论 / 媒介中介效应模型</div>
+                </div>
+                <div class="finding-block">
+                    <div class="finding-title">核心发现</div>
+                    <ul class="finding-list">
+                        <li>• <span class="highlight">中介效应：</span>浏览时间是影响自我认同的关键因素 (p<0.05)。</li>
+                        <li>• <span class="highlight">消费异化：</span>67%追求"悦己", 但82%仍在意"他者目光"。</li>
+                        <li>• <span class="highlight">全景敞视机制：</span>小红书从私域转向公共评价场域。</li>
+                    </ul>
+                </div>
+                <div class="biz-footer">
+                    <strong>商业启示：</strong>从"定义女性"→"理解多元" | 赋予"反凝视"权力 | 透明化+情感共鸣
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <img src="粉色3.jpg" class="side-img-left">
+        <div class="card" style="margin-left: 880px;" onclick="this.classList.toggle('active')">
+            <div style="color:var(--pink-deep); font-weight:bold; margin-bottom:10px; font-family:'Inter'; letter-spacing:2px;">【毕业论文研究】</div>
+            <h2 style="font-size:38px; margin-bottom:10px;">女性"四不像"困境</h2>
+            <p class="expand-hint" style="color:#999; font-family:'Inter';">点击展开深度理论分析 ➔</p>
+            
+            <div class="card-details">
+                <div class="quote-box"><p class="quote-text">"社会转型期的性别权力结构失衡"</p></div>
+                <div class="grid-info">
+                    <div class="info-item"><span class="info-label">理论视角</span>马克思主义女性主义 × 社会转型期理论</div>
+                    <div class="info-item"><span class="info-label">研究方法</span>文献研究法 + 案例分析法</div>
+                </div>
+                <div class="finding-block">
+                    <div class="finding-title">核心发现</div>
+                    <ul class="finding-list">
+                        <li>• <span class="highlight">困境：</span>旧秩序与新秩序碰撞，双重剥削（职场+家庭）隐形化。</li>
+                        <li>• <span class="highlight">虚假独立：</span>资本合谋制造消费主义下的“独立幻象”。</li>
+                        <li>• <span class="highlight">理想：</span>超越零和思维，追求制度与个体的“差异平等”。</li>
+                    </ul>
+                </div>
+                <div class="biz-footer">
+                    <strong>商业启示：</strong>包容性品牌传播 | 无性别营销 | 制度友好型产品
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section style="background:#fcfcfc;">
+        <img src="粉色4.jpg" class="side-img-right">
+        <div class="card" style="margin-right: 820px;" onclick="this.classList.toggle('active')">
+            <div style="color:var(--cyan-main); font-weight:bold; margin-bottom:10px; font-family:'Inter'; letter-spacing:2px;">【前沿技术研究】</div>
+            <h2 style="font-size:38px; margin-bottom:10px;">面向公众的可解释AI (XAI)</h2>
+            <p class="expand-hint" style="color:#999; font-family:'Inter';">点击查看 XAI 商业价值 ➔</p>
+            
+            <div class="card-details">
+                <div class="quote-box" style="background:#F0FFFE; border-left-color:var(--cyan-main);"><p class="quote-text" style="color:var(--cyan-main);">"信任重构：从黑盒到透明的逻辑进化"</p></div>
+                <div class="finding-block" style="border-left-color:var(--cyan-main);">
+                    <div class="finding-title">信任赤字与突破价值</div>
+                    <ul class="finding-list">
+                        <li>• <span class="highlight">现状：</span>黑盒AI导致隐私担忧，高风险领域（医疗/金融）合规需求。</li>
+                        <li>• <span class="highlight">业务：</span>透明化决策赋予掌控感，提升 <span class="highlight">CVR、留存率、CX指数约34%</span>。</li>
+                        <li>• <span class="highlight">前景：</span>电商“为什么推荐?”与营销“数据使用”的可视化。</li>
+                    </ul>
+                </div>
+                <div class="biz-footer" style="border-color:var(--cyan-main); background:#F5FDFF;">
+                    <strong>商业启示：</strong>透明度是战略资产 | XAI是人机协作桥梁 | 未来商业AI基础设施
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="footer-center">
+        <div class="footer-overlay"></div>
+        <div class="final-card">
+            <h2 style="font-size:52px; font-weight:900; margin-bottom:20px;">这些洞察如何转化价值?</h2>
+            <p style="font-size:26px; color:var(--pink-main); font-style:italic; margin-bottom:60px; font-family:'Playfair Display';">FROM INSIGHTS TO IMPACT</p>
+            <p style="font-size:22px; line-height:2.2; color:#444; max-width:850px; margin: 0 auto 60px;">
+                我的研究致力于将<strong>跨学科女性视角</strong>与<strong>AI透明度趋势</strong>转化为可落地的商业增长策略。在存量市场中，通过深度洞察重构品牌与个体之间的长效信任。
+            </p>
+            <a href="../03_cases/index.html" style="text-decoration:none; display:inline-block; border:3px solid #000; color:#000; padding:22px 80px; font-size:22px; font-weight:bold; letter-spacing:4px; transition:0.3s; font-family:'Inter';">EXPLORE MY CASES ➔</a>
+        </div>
+    </section>
+</div>
+
+</body>
+</html>
