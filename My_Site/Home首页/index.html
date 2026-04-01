@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, initial-scale=1.0">
+    <title>Gnōthi - 回晓风 | 认识你自己的哲学之旅</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+        :root {
+            --color-black: #000000;
+            --color-deep-blue: #1A2332;
+            --color-deep-blue-dark: #0F1B2E;
+            --color-deep-purple: #1A1A3E;
+            --color-deep-purple-dark: #0A0A1E;
+            --color-gold: #D4AF37;
+            --color-white: #F5F5F0;
+            --color-gray: #A0A0A0;
+            --color-gray-light: #C0C0C0;
+            --color-cyan: #4ECDC4;
+            --color-pink: #FF6B9D;
+            
+            --font-title: 'Cormorant Garamond', serif;
+            --font-zh: 'Noto Serif SC', serif;
+            --font-body: 'Inter', sans-serif;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            width: 1920px;
+            background-color: var(--color-black);
+            color: var(--color-white);
+            font-family: var(--font-zh);
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* 导航栏修改：增加跳转链接 */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 1920px;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 100px;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .nav-logo { font-family: var(--font-title); font-size: 32px; color: var(--color-gold); text-decoration: none; letter-spacing: 2px; }
+        .nav-links { display: flex; gap: 40px; }
+        .nav-links a { color: var(--color-gray-light); text-decoration: none; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; }
+        .nav-links a:hover { color: var(--color-gold); }
+
+        section {
+            width: 100%;
+            height: 1080px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: 0.8s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* 第一屏 - 首页 */
+        #screen1 { background-color: var(--color-black); }
+        .s1-top { position: absolute; top: 10%; font-family: var(--font-title); font-size: 36px; color: #2C5F7D; letter-spacing: 4px; }
+        .eye-container1 { width: 400px; height: 520px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 50px rgba(212,175,55,0.4); margin-bottom: 40px; }
+        .eye-container1 img { width: 100%; height: 100%; object-fit: cover; }
+        .s1-title { font-family: var(--font-title); font-size: 64px; color: var(--color-gold); margin-bottom: 20px; }
+        .s1-desc { font-family: var(--font-body); font-size: 16px; line-height: 1.8; max-width: 600px; text-align: center; }
+
+        /* 第二屏 - 哲学 */
+        #screen2 { background: linear-gradient(180deg, var(--color-deep-blue) 0%, var(--color-deep-blue-dark) 100%); }
+        .s2-center { display: flex; align-items: center; gap: 80px; width: 1400px; }
+        .eye-container2 { width: 450px; height: 540px; border-radius: 40px; overflow: hidden; box-shadow: 0 0 60px rgba(78,205,196,0.3); }
+        .eye-container2 img { width: 100%; height: 100%; object-fit: cover; }
+        .s2-text-area { max-width: 600px; }
+        .s2-text-area .title { font-family: var(--font-title); font-size: 72px; color: var(--color-gold); margin-bottom: 40px; }
+        .s2-text-area .para { font-size: 16px; line-height: 2.0; margin-bottom: 15px; }
+
+        /* 第三屏 - 目录（链接已激活） */
+        #screen3 { background: linear-gradient(180deg, var(--color-deep-purple) 0%, var(--color-deep-purple-dark) 100%); }
+        .grid-container { display: grid; grid-template-columns: repeat(3, 280px); gap: 40px; }
+        
+        /* 让卡片变成可点击的链接 */
+        .card-link { text-decoration: none; color: inherit; display: block; }
+        .card { background: rgba(0,0,0,0.5); border: 1.5px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 25px; height: 180px; transition: 0.4s; }
+        .card:hover { transform: translateY(-8px); box-shadow: 0 8px 30px rgba(212,175,55,0.4); border-color: var(--color-gold); }
+        .card-num { font-family: var(--font-title); font-size: 40px; color: var(--color-gold); margin-bottom: 12px; }
+        .card-title-zh { font-size: 20px; margin-bottom: 6px; }
+        .tag { padding: 4px 10px; border-radius: 12px; font-size: 11px; margin-right: 5px; }
+        .tag.gold { background: rgba(212,175,55,0.2); color: var(--color-gold); }
+        .tag.blue { background: rgba(78,205,196,0.2); color: var(--color-cyan); }
+        .tag.pink { background: rgba(255,107,157,0.2); color: var(--color-pink); }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <a href="#screen1" class="nav-logo">Gnōthi</a>
+        <div class="nav-links">
+            <a href="#screen1">Home</a>
+            <a href="01_About/index.html">About</a>
+            <a href="02_Research/index.html">Research</a>
+            <a href="03_Cases/index.html">Cases</a>
+            <a href="04_Skills/index.html">Skills</a>
+            <a href="06_Contact/index.html">Contact</a>
+        </div>
+    </nav>
+
+    <section id="screen1">
+        <div class="s1-center fade-in">
+            <div class="eye-container1"><img src="https://a.lovart.ai/artifacts/user/oNedPF8saX4tBwWa.jpg"></div>
+            <div class="s1-title">Gnōthi Seauton</div>
+            <div class="s1-desc">向内探索，是通往至高智慧的必经之路。</div>
+        </div>
+    </section>
+
+    <section id="screen2">
+        <div class="s2-center">
+            <div class="eye-container2 fade-in"><img src="https://a.lovart.ai/artifacts/user/M5XiZQwyplXE048f.jpg"></div>
+            <div class="s2-text-area fade-in">
+                <div class="title">认识你自己</div>
+                <div class="para">当我们在数字汪洋中沉浮，唯有那只向内凝视的眼，能穿透迷雾，洞见本质的微光。</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen3">
+        <div class="grid-container">
+            <a href="01_About/index.html" class="card-link">
+                <div class="card fade-in">
+                    <div class="card-num">01</div>
+                    <div class="card-title-zh">关于我</div>
+                    <div class="tags"><span class="tag gold">#哲学思维</span><span class="tag blue">#市场洞察</span></div>
+                </div>
+            </a>
+            <a href="02_Research/index.html" class="card-link">
+                <div class="card fade-in">
+                    <div class="card-num">02</div>
+                    <div class="card-title-zh">研究洞察</div>
+                    <div class="tags"><span class="tag pink">#女性经济</span><span class="tag blue">#AI营销</span></div>
+                </div>
+            </a>
+            <a href="03_Cases/index.html" class="card-link">
+                <div class="card fade-in">
+                    <div class="card-num">03</div>
+                    <div class="card-title-zh">品牌案例</div>
+                    <div class="tags"><span class="tag gold">#时尚审美</span><span class="tag pink">#市场策略</span></div>
+                </div>
+            </a>
+            </div>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('visible'); });
+            }, { threshold: 0.2 });
+            document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+        });
+    </script>
+</body>
+</html>
