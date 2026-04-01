@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="robots" content="noindex, nofollow">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gnōthi - 回晓风 | 认识你自己的哲学之旅</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Inter:wght@300;400;500&family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+        :root {
+            --color-black: #000000;
+            --color-gold: #D4AF37;
+            --color-white: #F5F5F0;
+            --color-gray: #A0A0A0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { background-color: var(--color-black); color: var(--color-white); font-family: 'Noto Serif SC', serif; overflow-x: hidden; }
+
+        /* --- 新增：首页侧边导航样式 --- */
+        .page-switcher {
+            position: fixed; right: 40px; top: 50%; transform: translateY(-50%);
+            z-index: 1000; display: flex; flex-direction: column; gap: 15px;
+        }
+        .page-link {
+            width: 45px; height: 45px; border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.2);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; text-decoration: none; font-size: 14px; transition: 0.3s;
+            font-family: 'Inter', sans-serif; backdrop-filter: blur(5px);
+        }
+        .page-link.active { background: #fff; color: #000; border-color: #fff; }
+        .page-link:hover:not(.active) { background: rgba(255, 255, 255, 0.2); transform: scale(1.1); }
+
+        section {
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .fade-in { opacity: 0; transform: translateY(30px); transition: 1s ease-out; }
+        .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+        /* 第一屏 */
+        .s1-container { text-align: center; }
+        .s1-eye { 
+            width: 320px; height: 460px; border-radius: 160px; 
+            overflow: hidden; margin: 0 auto 30px;
+            box-shadow: 0 0 50px rgba(212,175,55,0.3);
+        }
+        .s1-eye img { width: 100%; height: 100%; object-fit: cover; }
+        .s1-title { font-family: 'Cormorant Garamond', serif; font-size: 64px; color: var(--color-gold); font-style: italic; }
+
+        /* 第二屏 */
+        #screen2 { background-color: #0A0A1E; }
+        .s2-wrapper {
+            display: flex; align-items: center; justify-content: center;
+            gap: 100px; max-width: 1300px; width: 90%;
+        }
+        .s2-visual {
+            flex: 0 0 450px; height: 650px;
+            border-radius: 225px 225px 0 0; overflow: hidden;
+            box-shadow: 0 0 40px rgba(212,175,55,0.2);
+        }
+        .s2-visual img { width: 100%; height: 100%; object-fit: cover; }
+        
+        .s2-text { flex: 1; text-align: left; }
+        .s2-quote { font-size: 24px; color: var(--color-white); line-height: 1.6; margin-bottom: 30px; }
+        .s2-p { font-size: 17px; color: var(--color-gray); line-height: 2.2; }
+
+        /* 第三屏 */
+        #screen3 { flex-direction: column; padding: 100px 0; }
+        .grid-container {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px; width: 90%; max-width: 1200px; margin-top: 50px;
+        }
+        .card {
+            background: rgba(255,255,255,0.03); border: 1px solid rgba(212,175,55,0.1);
+            padding: 40px; border-radius: 15px; text-decoration: none; color: inherit; transition: 0.4s;
+        }
+        .card:hover { border-color: var(--color-gold); transform: translateY(-10px); background: rgba(212,175,55,0.05); }
+        .card-num { font-family: 'Cormorant Garamond', serif; font-size: 42px; color: var(--color-gold); margin-bottom: 15px; }
+
+        .scroll-down { position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); font-size: 12px; color: var(--color-gray); letter-spacing: 5px; }
+    </style>
+</head>
+<body>
+
+<nav class="page-switcher">
+    <a href="#" class="page-link active" style="font-size: 12px;">首页</a>
+    <a href="01_About/index.html" class="page-link">01</a>
+    <a href="02_Research/index.html" class="page-link">02</a>
+    <a href="03_Cases/index.html" class="page-link">03</a>
+    <a href="04_Skills/index.html" class="page-link">04</a>
+    <a href="05_Contact/index.html" class="page-link">05</a>
+</nav>
+
+    <section id="screen1">
+        <div class="s1-container fade-in">
+            <div class="s1-eye">
+                <img src="https://a.lovart.ai/artifacts/user/oNedPF8saX4tBwWa.jpg" alt="Eye 1">
+            </div>
+            <h1 class="s1-title">Gnōthi Seauton</h1>
+            <p style="margin-top:20px; letter-spacing: 5px; color: var(--color-gray);">向内探索，是通往至高智慧的必经之路。</p>
+        </div>
+        <div class="scroll-down">SCROLL EXPLORE</div>
+    </section>
+
+    <section id="screen2">
+        <div class="s2-wrapper fade-in">
+            <div class="s2-visual">
+                <img src="image_4a633b.jpg" alt="Eye 2">
+            </div>
+            <div class="s2-text">
+                <div class="s2-quote">
+                    德尔斐神庙的古老箴言<br>
+                    "认识你自己" (Gnōthi Seauton)
+                </div>
+                <div class="s2-p">
+                    <p>这不仅仅是一句哲理，它是构建强大内心的基石。在这个信息碎片化、价值多元交织的时代，保持清醒的自我认知尤为奢侈。</p>
+                    <p style="margin-top: 25px;">当我们在数字汪洋中沉浮，唯有那只向内凝视的眼，能穿透迷雾，洞见本质的微光。它是理性的晶体，也是灵感的源泉。</p>
+                    <p style="margin-top: 25px;">从商业洞察到品牌美学，每一次精准的切入，都源于对人性底层逻辑的深刻剖析。认识自己，方能理解世界。</p>
+                    <p style="margin-top: 25px;">以跨界的思维，打破固有范式；以审美的执念，重塑商业叙事。在这里，哲学不再是空谈，而是实用的利器。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="screen3">
+        <h2 class="fade-in" style="font-family: 'Cormorant Garamond', serif; font-size: 36px; letter-spacing: 10px;">EXPLORE MY KINGDOM</h2>
+        <div class="grid-container">
+            <a href="01_About/index.html" class="card fade-in">
+                <div class="card-num">01</div><div>关于我 / About Me</div>
+            </a>
+            <a href="02_Research/index.html" class="card fade-in">
+                <div class="card-num">02</div><div>研究洞察 / Research</div>
+            </a>
+            <a href="03_Cases/index.html" class="card fade-in">
+                <div class="card-num">03</div><div>品牌案例 / Cases</div>
+            </a>
+            <a href="04_Skills/index.html" class="card fade-in">
+                <div class="card-num">04</div><div>能力体系 / Skills</div>
+            </a>
+            <a href="05_Contact/index.html" class="card fade-in">
+                <div class="card-num">05</div><div>联系我 / Contact</div>
+            </a>
+        </div>
+    </section>
+
+    <script>
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
