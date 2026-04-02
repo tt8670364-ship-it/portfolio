@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>回晓风 | 个人数字名片</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;1,700&family=Noto+Serif+SC:wght@400;700&family=Inter:wght@300;400;600&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #050505;
+            font-family: 'Inter', 'Noto Serif SC', serif;
+            overflow: hidden;
+        }
+
+        /* 动态发光背景 */
+        body::before {
+            content: '';
+            position: absolute;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 0;
+            animation: pulse 6s infinite alternate;
+        }
+
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            100% { transform: translate(-50%, -50%) scale(1.5); opacity: 1; }
+        }
+
+        /* 名片容器 */
+        .card-container {
+            perspective: 1000px;
+            z-index: 10;
+        }
+
+        .card {
+            width: 380px;
+            height: 600px;
+            background: linear-gradient(135deg, rgba(30, 30, 30, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 20px;
+            padding: 40px 30px;
+            position: relative;
+            transform-style: preserve-3d;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.05);
+            transition: transform 0.1s;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* 卡片光泽反光层 */
+        .card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 20px;
+            background: linear-gradient(105deg, transparent 20%, rgba(212, 175, 55, 0.1) 25%, transparent 30%);
+            mix-blend-mode: color-dodge;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        .card-container:hover .card::after {
+            opacity: 1;
+        }
+
+        /* 顶部信息 */
+        .header { transform: translateZ(30px); }
+        .name {
+            font-family: 'Playfair Display', serif;
+            font-size: 36px;
+            color: #D4AF37; /* 高级定制金 */
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+        }
+        .eng-name {
+            font-size: 14px;
+            color: #888;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        /* 中部标语与标签 */
+        .middle { transform: translateZ(50px); margin-top: 40px; }
+        .slogan {
+            font-size: 18px;
+            color: #E0E0E0;
+            line-height: 1.6;
+            margin-bottom: 30px;
+            border-left: 2px solid #D4AF37;
+            padding-left: 15px;
+            font-style: italic;
+        }
+        .tags {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .tag {
+            font-size: 13px;
+            color: #CCC;
+            background: rgba(255, 255, 255, 0.03);
+            padding: 10px 15px;
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            letter-spacing: 1px;
+        }
+        .tag span { color: #D4AF37; margin-right: 8px; font-weight: bold; }
+
+        /* 底部操作区 */
+        .footer {
+            transform: translateZ(40px);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 25px;
+        }
+        .cta-btn {
+            text-decoration: none;
+            color: #000;
+            background: linear-gradient(90deg, #D4AF37, #F3E5AB);
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            transition: 0.3s;
+        }
+        .cta-btn:hover {
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
+            transform: scale(1.05);
+        }
+        .qr-placeholder {
+            width: 50px;
+            height: 50px;
+            border: 1px dashed rgba(212, 175, 55, 0.5);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 10px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="card-container">
+    <div class="card" id="3d-card">
+        <div class="header">
+            <h1 class="name">回 晓 风</h1>
+            <p class="eng-name">Blink</p>
+        </div>
+
+        <div class="middle">
+            <p class="slogan">以哲学思辨入市<br>以数据洞察成人</p>
+            <div class="tags">
+                <div class="tag"><span>✦</span> Consumer Insight 深度洞察</div>
+                <div class="tag"><span>✦</span> Brand Aesthetics 品牌美学</div>
+                <div class="tag"><span>✦</span> XAI & Marketing 智商化营销</div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <a href="https://tt8670364-ship-it.github.io/portfolio/" class="cta-btn" target="_blank">Enter My Garden</a>
+            <div class="qr-placeholder">QR Code</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 简单的 3D 悬浮交互脚本
+    const card = document.getElementById('3d-card');
+    const container = document.querySelector('.card-container');
+
+    container.addEventListener('mousemove', (e) => {
+        const rect = container.getBoundingClientRect();
+        const x = e.clientX - rect.left;
+        const y = e.clientY - rect.top;
+        
+        const centerX = rect.width / 2;
+        const centerY = rect.height / 2;
+        
+        const rotateX = ((y - centerY) / centerY) * -15; // 最大倾斜角度
+        const rotateY = ((x - centerX) / centerX) * 15;
+
+        card.style.transform = `rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+    });
+
+    container.addEventListener('mouseleave', () => {
+        card.style.transform = 'rotateX(0) rotateY(0)';
+        card.style.transition = 'transform 0.5s ease';
+    });
+
+    container.addEventListener('mouseenter', () => {
+        card.style.transition = 'none'; // 移除过渡动画，让鼠标跟随更丝滑
+    });
+</script>
+
+</body>
+</html>
